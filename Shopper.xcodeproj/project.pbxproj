@@ -15,6 +15,7 @@
 		E495939D2371C09A0054A56B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E495939C2371C09A0054A56B /* Assets.xcassets */; };
 		E49593A02371C09A0054A56B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E495939E2371C09A0054A56B /* LaunchScreen.storyboard */; };
 		E49593A82371C4220054A56B /* ShopperTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49593A72371C4220054A56B /* ShopperTableViewController.swift */; };
+		E49593AA237AFC4A0054A56B /* ShopppingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49593A9237AFC4A0054A56B /* ShopppingListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E495939F2371C09A0054A56B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E49593A12371C09A0054A56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E49593A72371C4220054A56B /* ShopperTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopperTableViewController.swift; sourceTree = "<group>"; };
+		E49593A9237AFC4A0054A56B /* ShopppingListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopppingListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				E49593A12371C09A0054A56B /* Info.plist */,
 				E49593992371C0990054A56B /* Shopper.xcdatamodeld */,
 				E49593A72371C4220054A56B /* ShopperTableViewController.swift */,
+				E49593A9237AFC4A0054A56B /* ShopppingListTableViewController.swift */,
 			);
 			path = Shopper;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				E49593952371C0990054A56B /* ViewController.swift in Sources */,
 				E495939B2371C0990054A56B /* Shopper.xcdatamodeld in Sources */,
 				E49593912371C0990054A56B /* AppDelegate.swift in Sources */,
+				E49593AA237AFC4A0054A56B /* ShopppingListTableViewController.swift in Sources */,
 				E49593932371C0990054A56B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
