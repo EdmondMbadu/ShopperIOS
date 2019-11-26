@@ -27,16 +27,32 @@ class ShopppingListTableViewController: UITableViewController {
         // call load Shopping list items method
         loadShoppingListItems()
       
+        
+        // make row height larger
+        self.tableView.rowHeight = 84.0
+        setTitle()
+    }
+    
+    func setTitle (){
+        // declare local variable to store total cost of shopping and initialize it to zero
+        var totalCost = 0.0
+        
+        // loop through shopping list items and compute total cost
+        for list in shoppinListItems {
+            totalCost += Double (list.price) * Double( list.quantity)
+        }
+        
+        
         if let selectedShoppinglist = selectedShoppingList {
             // get the shopping list name and set the title
-            title = selectedShoppinglist.name!
+            title = selectedShoppinglist.name! + String (format: "$%.2f", totalCost)
+            
         } else {
             // set the title of Shopping List Items
             title = "Shopping List Items"
         }
         
-        // mae
-        self.tableView.rowHeight = 84.0
+        
     }
     
     // save shopping list into core Data
@@ -64,6 +80,19 @@ class ShopppingListTableViewController: UITableViewController {
         }
         // reload fetched data in Table View Controller
         tableView.reloadData()
+    }
+    
+    // delete shhoppinglistItem entities from Core Data
+    func deleteShoppingListItem(item: ShoppingListItem){
+        context.delete(item)
+        do {
+            // use context to delete ShoppingLists into Core Data
+            try context.save()
+            }catch {
+            print("Error deleting ShoppingListItems from Core Data!")
+            }
+        loadShoppingListItems()
+        
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -99,9 +128,11 @@ class ShopppingListTableViewController: UITableViewController {
                    
                    // save ShoppingListItems into Core Data
                    self.saveShoppingListItems()
-                   
-                   
+                   // update the title to incorporate the cost of the added shopping list item
+                self.setTitle()
                })
+        
+                
                
                // disable an action that will occure when the Cancel is pushed
                action.isEnabled = false
@@ -207,25 +238,58 @@ class ShopppingListTableViewController: UITableViewController {
     
     
 
-    /*
+   
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+  
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListItemCell", for: indexPath)
+              // getting the selected shopping list item
+              let shoppingListItem = shoppinListItems[indexPath.row]
+              
+        
+        // get quanity, price and purchased indicator for selected shopping list item
+        let sQuantity = String (shoppingListItem.quantity)
+        let sPrice = String (shoppingListItem.price)
+        let purchased = shoppingListItem.purchased
+   
+        if (purchased == true){
+            // if purchased indicator is true, set it to false, and remove chekmark
+            cell.accessoryType = .none
+            shoppingListItem.purchased = false
+        }
+        else {
+            // if purhcased indicator is false, set it to true and add checkmark
+            cell.accessoryType = .checkmark
+            shoppingListItem.purchased = true
+        }
+        // configure the table view cell
+        cell.textLabel?.text = shoppingListItem.name
+        cell.detailTextLabel!.numberOfLines = 0
+        cell.detailTextLabel?.text = sQuantity + "\n" + sPrice
+        
+        // save update to purchased indicator
+        self.saveShoppingListItems()
+        
+        // call deselect method to all update to be visible in table view controller
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
-    /*
+   
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let item = shoppinListItems[indexPath.row]
+            deleteShoppingListItem(item: item)
+            setTitle()
+        }
     }
-    */
+  
 
     /*
     // Override to support rearranging the table view.
